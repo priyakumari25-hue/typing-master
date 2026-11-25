@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TypeWise – Learn Typing, Test Your Speed</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EAF1F7;--panel:#fff;--ink:#14213D;--mute:#5B6B85;--line:#CFDBE8;--accent:#2F6FED;--on:#fff;--ok:#1B8A5A;--bad:#D64545;--badbg:#FBE0E0;--cur:#FFE08A;--gold:#F2A900;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A2E;--panel:#17243D;--ink:#E8EEF8;--mute:#9BADC9;--line:#2B3C5C;--accent:#6C9BFF;--on:#0F1A2E;--ok:#4FD39A;--bad:#FF7A7A;--badbg:#4A2630;--cur:#6B5A1E}}
+:root[data-theme="dark"]{--bg:#0F1A2E;--panel:#17243D;--ink:#E8EEF8;--mute:#9BADC9;--line:#2B3C5C;--accent:#6C9BFF;--on:#0F1A2E;--ok:#4FD39A;--bad:#FF7A7A;--badbg:#4A2630;--cur:#6B5A1E}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend',system-ui,Arial,sans-serif;line-height:1.55}
+.hidden{display:none!important}
+header{background:var(--panel);border-bottom:1px solid var(--line)}
+.top{max-width:960px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.brand{font-weight:700;font-size:1.25rem;margin-right:auto}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button{border:0;background:transparent;color:var(--mute);font:inherit;padding:8px 12px;border-radius:8px;cursor:pointer}
+nav button[aria-current="page"]{background:var(--accent);color:var(--on)}
+.chip{font-size:.9rem;color:var(--mute)}
+.chip button{border:0;background:none;color:var(--accent);font:inherit;cursor:pointer;text-decoration:underline}
+main{max-width:960px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.9rem;margin:0 0 6px}h2{margin:0 0 8px}
+.mute{color:var(--mute)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:16px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.card:hover:not(:disabled){border-color:var(--accent)}
+.card:disabled{opacity:.5;cursor:not-allowed}
+.card .em{font-size:1.8rem}.card b{display:block}
+.btn{padding:12px 22px;border:0;border-radius:10px;background:var(--accent);color:var(--on);font:inherit;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.opt{padding:12px 16px;border:2px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on)}
+.opt small{display:block;opacity:.85}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 16px}
+input[type=text]{width:100%;max-width:360px;padding:14px;border:2px solid var(--line);border-radius:10px;font:inherit;background:var(--panel);color:var(--ink);margin:10px 0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stats{display:flex;gap:10px;margin-bottom:10px}
+.stat{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}
+.stat b{display:block;font-size:1.4rem}.stat span{font-size:.8rem;color:var(--mute)}
+.bar{height:6px;background:var(--line);border-radius:3px;margin-bottom:12px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+#box{position:relative;height:200px;overflow:hidden;font-size:1.25rem;line-height:2;padding:12px 16px;cursor:text;margin-bottom:10px}
+#text span{border-radius:3px}.ok{color:var(--ok)}.bad{background:var(--badbg);color:var(--bad)}.cur{background:var(--cur)}
+#ta{position:absolute;inset:0;opacity:0;width:100%;height:100%;resize:none;border:0}
+.kb{display:flex;flex-direction:column;gap:4px;align-items:center;margin:10px 0}
+.kr{display:flex;gap:4px;width:100%;justify-content:center}
+.k{flex:1;max-width:44px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:.85rem}
+.k.next{background:var(--accent);color:var(--on);border-color:var(--accent);font-weight:700}
+.k.sp{max-width:300px;flex:6}
+#finger{font-weight:500;min-height:1.6em}
+.big{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+.big div{flex:1 1 140px;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.big b{display:block;font-size:2.2rem}.big span{color:var(--mute);font-size:.9rem}
+.stars{font-size:1.6rem;color:var(--gold)}
+ul.tips{padding-left:20px}ul.tips li{margin:6px 0}
+.miss{display:inline-block;min-width:34px;padding:4px 10px;margin:2px;border-radius:8px;background:var(--badbg);color:var(--bad);font-weight:700;text-align:center}
+table{width:100%;border-collapse:collapse}td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}.tw{overflow-x:auto}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<header id="top" class="hidden"><div class="top">
+  <div class="brand">⌨️ TypeWise 🚀</div>
+  <nav><button data-go="home">Home</button><button data-go="lessons">Lessons</button><button data-go="tsetup">Speed Test</button><button data-go="progress">My Progress</button></nav>
+  <div class="chip">👤 <span id="who"></span> · <button id="out">Switch user</button></div>
+</div></header>
+<main>
+
+<section class="view" id="v-login">
+  <div class="panel" style="text-align:center;padding:36px 18px">
+    <div style="font-size:3rem">⌨️🚀</div>
+    <h1>Welcome to TypeWise</h1>
+    <p class="mute">Learn typing from zero, practise with lessons, and test your speed.</p>
+    <label for="nm"><b>Enter your name to begin</b></label><br>
+    <input type="text" id="nm" maxlength="30" placeholder="Your name" autocomplete="given-name">
+    <p id="lerr" class="mute" style="color:var(--bad)"></p>
+    <button class="btn" id="go">Start learning</button>
+    <p class="mute" style="font-size:.85rem">Your progress is saved on this device under your name.</p>
+  </div>
+</section>
+
+<section class="view hidden" id="v-home">
+  <h1 id="hi">Hi 👋</h1><p class="mute">Practise a little every day and watch your speed grow.</p>
+  <div class="panel" id="nextbox"></div>
+  <div class="grid">
+    <button class="card" data-go="lessons"><span class="em">📘</span><b>Lessons</b><span class="mute">11 step-by-step lessons from zero level</span></button>
+    <button class="card" data-go="tsetup"><span class="em">⏱️</span><b>Speed Test</b><span class="mute">1, 2 or 3 minute tests with stories</span></button>
+    <button class="card" data-go="progress"><span class="em">📈</span><b>My Progress</b><span class="mute">Scores, accuracy and history</span></button>
+  </div>
+</section>
+
+<section class="view hidden" id="v-lessons">
+  <h1>📘 Lessons</h1><p class="mute">Finish each lesson with 85% accuracy to unlock the next one. Earn up to 3 stars!</p>
+  <div class="grid" id="lgrid"></div>
+</section>
+
+<section class="view hidden" id="v-tsetup">
+  <h1>⏱️ Speed Test</h1><p class="mute">Type a story and find your speed (WPM) and accuracy.</p>
+  <div class="panel"><h2>1. Test time</h2><div class="row" id="times">
+    <button class="opt" data-m="1" aria-pressed="true">1 minute</button><button class="opt" data-m="2" aria-pressed="false">2 minutes</button><button class="opt" data-m="3" aria-pressed="false">3 minutes</button></div>
+  <h2>2. Story reading level</h2><div class="row" id="lvls">
+    <button class="opt" data-l="0" aria-pressed="true">🟢 Easy<small>Simple words, short sentences</small></button>
+    <button class="opt" data-l="1" aria-pressed="false">🟡 Medium<small>Everyday stories</small></button>
+    <button class="opt" data-l="2" aria-pressed="false">🔴 Hard<small>Long sentences, rich words</small></button></div>
+  <button class="btn" id="tstart">Start test</button>
+  <p class="mute" style="font-size:.9rem">The timer starts when you type your first letter.</p></div>
+</section>
+
+<section class="view hidden" id="v-play">
+  <h2 id="ptitle"></h2><p class="mute" id="ptip"></p>
+  <div class="stats"><div class="stat"><b id="sT">0:00</b><span id="sTl">Time</span></div><div class="stat"><b id="sW">0</b><span>WPM</span></div><div class="stat"><b id="sA">100%</b><span>Accuracy</span></div></div>
+  <div class="bar"><i id="prog"></i></div>
+  <div class="panel" id="box"><div id="text"></div><textarea id="ta" aria-label="Type here" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea></div>
+  <div id="finger"></div>
+  <div class="kb" id="kb" aria-hidden="true"></div>
+  <button class="btn ghost" id="quit">Stop</button>
+</section>
+
+<section class="view hidden" id="v-result">
+  <div class="panel">
+    <h2 id="rt">Result 🎉</h2><div class="stars" id="rs"></div>
+    <div class="big"><div><b id="rW">0</b><span>Words per minute</span></div><div><b id="rA">0%</b><span>Accuracy</span></div><div><b id="rE">0</b><span>Mistakes</span></div></div>
+    <p id="rmiss"></p>
+  </div>
+  <div class="panel"><h2>💡 Suggestions for you</h2><ul class="tips" id="rtips"></ul></div>
+  <div class="row"><button class="btn" id="again">Try again</button><button class="btn ghost" id="rnext"></button><button class="btn ghost" data-go="home">Home</button></div>
+</section>
+
+<section class="view hidden" id="v-progress">
+  <h1>📈 My Progress</h1><div id="pbody"></div>
+</section>
+</main>
+
+<script>
+var $=function(i){return document.getElementById(i)},U=null,D=null,P={},TM=null,mins=1,lvl=0;
+var LS=[
+{t:"Home Row Basics",e:"🏠",tip:"Rest your fingers on A S D F and J K L ;. Feel the small bumps on F and J. Return to this position after every key.",x:"asdf jkl; asdf jkl; fj fj dk dk sl sl a; a; jf jf kd kd ls ls ;a ;a asdf jkl; fjdk slal"},
+{t:"Home Row Words",e:"🔤",tip:"Now G and H, reached by your index fingers. Keep your other fingers on the home row.",x:"had has half glad flag shall flash dash gal hall fad lag slash flask hash gas ask dad all fall"},
+{t:"Top Row",e:"⬆️",tip:"Reach up from the home row with the same finger, then come back.",x:"qwer tyui op qwer tyui op wet rye pot tire quit port tower your pretty write type power quote true"},
+{t:"Top Row Words",e:"📝",tip:"Keep a steady rhythm. Do not look at the keyboard.",x:"you were quiet we write pretty reports your power tower story pure true type top try our pie"},
+{t:"Bottom Row",e:"⬇️",tip:"Curl your fingers down gently. Your index fingers handle V B and N M.",x:"zxcv bnm zxcv bnm can van man box mix zinc numb comb cab bin zoom mob zoom box"},
+{t:"Bottom Row Words",e:"🧩",tip:"Slow and correct is better than fast and wrong.",x:"zoom box cab van bin mix can numb vex zinc bacon cabin zebra number maze bench mango"},
+{t:"All Letters",e:"🔠",tip:"Use every finger. This is where real typing begins.",x:"the quick brown fox jumps over the lazy dog and then runs back to the river to drink some water and sleep"},
+{t:"Capitals and Punctuation",e:"❗",tip:"Hold Shift with the opposite hand's pinky to type a capital letter.",x:"My name is Ravi. I live in Raigarh, India. Do you like mangoes? Yes, I do! Priya and Aman are my friends."},
+{t:"Numbers",e:"🔢",tip:"Reach to the number row and come straight back to home row.",x:"1 2 3 4 5 6 7 8 9 0 12 34 56 78 90 2024 365 days 24 hours 60 minutes 100 marks 7 colours 10 fingers"},
+{t:"Short Sentences",e:"💬",tip:"Type full sentences without stopping. Fix mistakes quickly.",x:"I love to learn new things. Practice makes a person perfect. Keep your back straight and your eyes on the screen. Type slowly and make no mistakes."},
+{t:"Paragraph Challenge",e:"🏆",tip:"Final lesson! Keep a smooth, steady rhythm all the way.",x:"Typing is a skill that grows with practice. Every day, a few minutes of focused effort makes your fingers faster and your mind calmer. Do not look at the keys. Keep a steady rhythm, fix mistakes quickly, and be proud of every small improvement."}];
+var SS=[[
+"Mia has a small cat. The cat is white and soft. Every day, Mia gives the cat milk. The cat sits on her bed and purrs. One day, the cat runs out to the garden. Mia runs after it. They play with a red ball in the sun. Mia laughs and the cat jumps. It is a happy day for both of them.",
+"Sam and his dad go to the park. The sky is blue and the air is warm. Sam rides his new bike on the long path. His dad walks behind him and claps. Soon Sam can ride without help. He rings the bell and smiles. They sit under a big tree and eat apples. Sam says it was the best day ever."],[
+"Rohan stood on the roof and looked at the empty sky. His red kite had snapped its string and floated far away over the river. He wanted to cry, but his grandfather smiled and said that every lost kite teaches something. The next morning they bought paper, thin sticks and glue. By evening the wind was perfect, and the new kite rose higher than any other in the village.",
+"The night train left the small station exactly at ten. Meera sat near the window with a cup of hot tea and watched the lights of the town become tiny stars. A kind old woman offered her a sweet laddoo and told stories about her village. Meera felt nervous about her new college, but the rhythm of the wheels made her calm. When she woke up, the sun was rising over the hills."],[
+"Every morning, the lighthouse keeper climbed two hundred and twelve steps to polish the great lens, although ships rarely passed through the narrow strait anymore. The villagers considered his routine pointless, yet he insisted that a light neglected is a promise broken. One stormy night, a fishing boat, battered by waves and blinded by fog, searched desperately for the harbour. The beam cut through the darkness, and the exhausted sailors found their way home.",
+"Curiosity, scientists argue, is not merely a pleasant personality trait but a survival mechanism refined over millions of years. Early humans who explored unfamiliar valleys discovered fresh water, fertile soil and safer shelters. Today, that same instinct drives researchers to question assumptions, test hypotheses and challenge established ideas. Remarkably, curiosity grows stronger when it is used; each answered question tends to open three new ones."]];
+var FG=[["left pinky","qaz1"],["left ring finger","wsx2"],["left middle finger","edc3"],["left index finger","rfvtgb45"],["right index finger","yhnujm67"],["right middle finger","ik,8"],["right ring finger","ol.9"],["right pinky","p;/0"],["thumb"," "]];
+function rd(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function wr(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ukey(n){return "tw_"+n.toLowerCase().replace(/\s+/g," ")}
+function sv(){wr(ukey(U),D)}
+function go(v){clearInterval(TM);document.querySelectorAll(".view").forEach(function(s){s.classList.toggle("hidden",s.id!=="v-"+v)});
+ document.querySelectorAll("nav button").forEach(function(b){b.setAttribute("aria-current",b.dataset.go===v?"page":"false")});
+ $("top").classList.toggle("hidden",!U);window.scrollTo(0,0);
+ if(v==="home")rHome();if(v==="lessons")rLessons();if(v==="progress")rProg()}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-go]");if(b)go(b.dataset.go)});
+function login(){var n=$("nm").value.trim();if(n.length<2){$("lerr").textContent="Please enter your name (at least 2 letters).";return}
+ U=n;D=rd(ukey(n))||{l:{},t:[]};wr("tw_last",n);$("who").textContent=n;go("home")}
+$("go").onclick=login;$("nm").addEventListener("keydown",function(e){if(e.key==="Enter")login()});
+$("out").onclick=function(){U=null;$("nm").value=rd("tw_last")||"";go("login")};
+$("nm").value=rd("tw_last")||"";
+function pass(i){return D.l[i]&&D.l[i].p}
+function rHome(){$("hi").textContent="Hi "+U+" 👋";var n=0;while(n<LS.length&&pass(n))n++;
+ var best=0;D.t.forEach(function(r){if(r.w>best)best=r.w});
+ $("nextbox").innerHTML=(n<LS.length?"<h2>Your next step</h2><p>Lesson "+(n+1)+": <b>"+LS[n].e+" "+LS[n].t+"</b></p><button class='btn' id='cont'>"+(n?"Continue":"Start")+" lesson "+(n+1)+"</button>":"<h2>🎉 All lessons complete!</h2><p>Take a Hard-level speed test to beat your best.</p><button class='btn' data-go='tsetup'>Take a speed test</button>")+
+ "<p class='mute'>Lessons done: "+n+"/"+LS.length+" · Best speed: "+(best?best+" WPM":"no test yet")+"</p>";
+ if($("cont"))$("cont").onclick=function(){lesson(n)}}
+function stars(n){return "★★★".slice(0,n)+"☆☆☆".slice(0,3-n)}
+function rLessons(){var h="";LS.forEach(function(l,i){var ok=i===0||pass(i-1),d=D.l[i];
+ h+="<button class='card' data-i='"+i+"' "+(ok?"":"disabled")+"><span class='em'>"+(ok?l.e:"🔒")+"</span><b>Lesson "+(i+1)+": "+l.t+"</b><span class='stars'>"+stars(d?d.s:0)+"</span><br><span class='mute'>"+(d?"Best: "+d.w+" WPM":ok?"Ready":"Locked")+"</span></button>"});
+ $("lgrid").innerHTML=h;document.querySelectorAll("#lgrid .card").forEach(function(c){c.onclick=function(){lesson(+c.dataset.i)}})}
+function lesson(i){play({mode:"lesson",i:i,text:LS[i].x+" "+LS[i].x,title:"Lesson "+(i+1)+": "+LS[i].t+" "+LS[i].e,tip:LS[i].tip})}
+document.querySelectorAll("#times .opt").forEach(function(b){b.onclick=function(){document.querySelectorAll("#times .opt").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");mins=+b.dataset.m}});
+document.querySelectorAll("#lvls .opt").forEach(function(b){b.onclick=function(){document.querySelectorAll("#lvls .opt").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");lvl=+b.dataset.l}});
+function test(){var a=SS[lvl].slice(),f=Math.floor(Math.random()*a.length),t=a[f]+" "+a[1-f];SS.forEach(function(g,j){if(j!==lvl)t+=" "+g.join(" ")});
+ play({mode:"test",m:mins,lv:lvl,limit:mins*60,text:t,title:"Speed Test · "+mins+" min · "+["Easy","Medium","Hard"][lvl],tip:"Type the story below. The timer starts when you type the first letter."})}
+$("tstart").onclick=test;
+var KB={};
+["1234567890","qwertyuiop","asdfghjkl;","zxcvbnm,./"].forEach(function(r){var d=document.createElement("div");d.className="kr";r.split("").forEach(function(c){var k=document.createElement("div");k.className="k";k.textContent=c;d.appendChild(k);KB[c]=k});$("kb").appendChild(d)});
+var sp=document.createElement("div");sp.className="kr";var sk=document.createElement("div");sk.className="k sp";sk.textContent="space";sp.appendChild(sk);$("kb").appendChild(sp);KB[" "]=sk;
+var ta=$("ta"),nk=null;
+function play(o){clearInterval(TM);P=o;P.st=false;P.tot=0;P.good=0;P.miss={};P.done=false;P.prev=0;ta.value="";ta.disabled=false;
+ $("ptitle").textContent=o.title;$("ptip").textContent=o.tip;$("kb").classList.toggle("hidden",o.mode!=="lesson");
+ $("sTl").textContent=o.limit?"Time left":"Time";$("sT").textContent=o.limit?Math.floor(o.limit/60)+":00":"0:00";$("sW").textContent="0";$("sA").textContent="100%";$("prog").style.width="0";
+ $("text").innerHTML=o.text.split("").map(function(c){return "<span>"+(c==="&"?"&amp;":c==="<"?"&lt;":c)+"</span>"}).join("");
+ $("box").scrollTop=0;go("play");paint();ta.focus()}
+function paint(){var v=ta.value,sp=$("text").children;for(var i=0;i<sp.length;i++)sp[i].className=i<v.length?(v[i]===P.text[i]?"ok":"bad"):i===v.length?"cur":"";
+ var c=sp[Math.min(v.length,sp.length-1)];if(c)$("box").scrollTop=Math.max(0,c.offsetTop-70);
+ if(nk)nk.classList.remove("next");var ch=P.text[v.length]||"";var lo=ch.toLowerCase();nk=KB[lo]||null;
+ if(P.mode==="lesson"){if(nk)nk.classList.add("next");var f="";FG.forEach(function(g){if(g[1].indexOf(lo)>-1&&lo)f=g[0]});
+  $("finger").textContent=ch?("Next: "+(ch===" "?"Space":ch)+(f?" — use your "+f:"")+(ch!==lo?" (hold Shift)":"")):""}}
+function net(){var n=0,v=ta.value;for(var i=0;i<v.length;i++)if(v[i]===P.text[i])n++;return n}
+function calc(){var el=Math.max((Date.now()-P.t0)/60000,1/600);return{w:Math.round(net()/5/el),a:P.tot?Math.round(P.good/P.tot*100):100}}
+ta.addEventListener("input",function(){if(P.done)return;if(!P.st){P.st=true;P.t0=Date.now();TM=setInterval(tick,250)}
+ var v=ta.value;for(var i=P.prev;i<v.length;i++){P.tot++;if(v[i]===P.text[i])P.good++;else{var c=P.text[i].toLowerCase();P.miss[c]=(P.miss[c]||0)+1}}
+ P.prev=v.length;paint();if(P.mode==="lesson")$("prog").style.width=Math.min(100,v.length/P.text.length*100)+"%";
+ if(v.length>=P.text.length&&P.mode==="lesson")finish()});
+ta.addEventListener("paste",function(e){e.preventDefault()});
+$("box").addEventListener("click",function(){ta.focus()});
+function tick(){var s=(Date.now()-P.t0)/1000,t=P.limit?Math.max(0,P.limit-s):s,r=Math.ceil(t);
+ $("sT").textContent=Math.floor(r/60)+":"+("0"+r%60).slice(-2);var c=calc();$("sW").textContent=c.w;$("sA").textContent=c.a+"%";
+ if(P.limit){$("prog").style.width=(s/P.limit*100)+"%";if(t<=0)finish()}}
+$("quit").onclick=function(){P.done=true;go(P.mode==="lesson"?"lessons":"tsetup")};
+function finish(){if(P.done)return;P.done=true;clearInterval(TM);ta.disabled=true;var c=calc(),err=P.tot-P.good,d=new Date().toLocaleDateString();
+ var top=Object.keys(P.miss).sort(function(a,b){return P.miss[b]-P.miss[a]}).slice(0,5);
+ $("rW").textContent=c.w;$("rA").textContent=c.a+"%";$("rE").textContent=err;
+ $("rmiss").innerHTML=top.length?"Keys to practise: "+top.map(function(k){return "<span class='miss'>"+(k===" "?"space":k.replace("<","&lt;"))+"</span>"}).join(""):"No mistakes. Perfect typing! 🌟";
+ var nxt=null;
+ if(P.mode==="lesson"){var s=c.a>=97?3:c.a>=92?2:c.a>=85?1:0,o=D.l[P.i]||{p:false,s:0,w:0};
+  D.l[P.i]={p:o.p||s>0,s:Math.max(o.s,s),w:Math.max(o.w,c.w)};sv();
+  $("rt").textContent=s>0?"Lesson complete! 🎉":"Almost there 💪";$("rs").textContent=stars(s);
+  $("again").onclick=function(){lesson(P.i)};
+  if(s>0&&P.i+1<LS.length){$("rnext").textContent="Next lesson →";$("rnext").onclick=function(){lesson(P.i+1)};nxt=1}
+  else if(s===0){$("rnext").textContent="Back to lessons";$("rnext").onclick=function(){go("lessons")};nxt=1}}
+ else{D.t.unshift({m:P.m,l:P.lv,w:c.w,a:c.a,d:d});D.t=D.t.slice(0,30);sv();$("rt").textContent="Test complete! 🎉";$("rs").textContent="";
+  $("again").onclick=test;$("rnext").textContent=c.w<25?"Go to lessons":"My progress";$("rnext").onclick=function(){go(c.w<25?"lessons":"progress")};nxt=1}
+ $("rnext").classList.toggle("hidden",!nxt);
+ var t=[];
+ if(c.a<85)t.push("<b>Accuracy first:</b> slow down until you make fewer than 1 mistake in every 10 keys. Speed follows accuracy.");
+ else if(c.a<95)t.push("<b>Good accuracy.</b> Aim for 95% or more before you push for more speed.");
+ else t.push("<b>Excellent accuracy!</b> Now increase your speed a little at a time.");
+ if(c.w<20)t.push("<b>Speed:</b> You are at beginner level. Complete the lessons in order and practise 15 minutes daily. Next target: 25 WPM.");
+ else if(c.w<40)t.push("<b>Speed:</b> Nice progress! Next target is 40 WPM. Keep a steady rhythm and do not look at the keys.");
+ else if(c.w<60)t.push("<b>Speed:</b> Strong speed! Try Hard-level stories to reach 60 WPM.");
+ else t.push("<b>Speed:</b> Professional level! Keep testing on Hard stories to stay sharp.");
+ if(top.length)t.push("<b>Weak keys:</b> repeat the lesson that teaches "+top.slice(0,3).join(", ").toUpperCase()+" and type those keys slowly.");
+ t.push("<b>Posture:</b> sit straight, keep wrists relaxed and the screen at eye level.");
+ t.push("<b>Habit:</b> 15 minutes every day is better than 2 hours once a week.");
+ $("rtips").innerHTML=t.map(function(x){return "<li>"+x+"</li>"}).join("");go("result")}
+function rProg(){var T=D.t,best={},n=0;for(var i=0;i<LS.length;i++)if(pass(i))n++;T.forEach(function(r){if(!best[r.m]||r.w>best[r.m])best[r.m]=r.w});
+ var avg=T.length?Math.round(T.slice(0,5).reduce(function(s,r){return s+r.a},0)/Math.min(5,T.length)):0;
+ $("pbody").innerHTML="<div class='big'><div><b>"+n+"/"+LS.length+"</b><span>Lessons done</span></div><div><b>"+T.length+"</b><span>Tests taken</span></div><div><b>"+(avg?avg+"%":"-")+"</b><span>Avg accuracy (last 5)</span></div></div>"+
+ "<div class='panel'><h2>🏅 Best speed</h2>"+[1,2,3].map(function(m){return m+" min: <b>"+(best[m]?best[m]+" WPM":"-")+"</b>"}).join(" &nbsp;·&nbsp; ")+"</div>"+
+ "<div class='panel'><h2>Recent tests</h2>"+(T.length?"<div class='tw'><table><tr><th>Date</th><th>Time</th><th>Level</th><th>WPM</th><th>Accuracy</th></tr>"+T.slice(0,10).map(function(r){return "<tr><td>"+r.d+"</td><td>"+r.m+" min</td><td>"+["Easy","Medium","Hard"][r.l]+"</td><td>"+r.w+"</td><td>"+r.a+"%</td></tr>"}).join("")+"</table></div>":"<p class='mute'>No tests yet. Take your first speed test!</p>")+"</div>"}
+</script>
+</body>
+</html>
